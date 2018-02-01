@@ -1,26 +1,16 @@
 import sys
 import os
+import collections
 
 
 def load_data(filepath):
     with open(filepath, "r", encoding="utf-8") as text_file:
-        text_list = [i.split() for i in text_file if len(i.split()) != 0]
-        return text_list
+        text_list = text_file.read().split()
+    return text_list
 
 
-def get_most_frequent_words(text, count_words=10):
-    words_dict = {}
-    for lines in text:
-        for word in lines:
-            if word in words_dict:
-                words_dict[word] += 1
-            else:
-                words_dict[word] = 1
-
-    sorted_list = sorted(words_dict.items(), key=lambda item: item[1], reverse=True)
-    most_frequent_words = []
-    for i in range(count_words):
-        most_frequent_words.append(sorted_list[i][0])
+def get_most_frequent_words(text_list, count_words=10):
+    most_frequent_words = collections.Counter(text_list).most_common(count_words)
     return most_frequent_words
 
 
