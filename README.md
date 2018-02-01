@@ -1,4 +1,4 @@
-# Prettify JSON
+# Lang frequency
 
 This program prints in the console 10 most frequently used words in the text
 
