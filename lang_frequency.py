@@ -8,19 +8,19 @@ def load_data(filepath):
         return text_list
 
 
-def get_most_frequent_words(text, count=10):
-    dict_words = {}
+def get_most_frequent_words(text, count_words=10):
+    words_dict = {}
     for lines in text:
         for word in lines:
-            if word in dict_words:
-                dict_words[word] += 1
+            if word in words_dict:
+                words_dict[word] += 1
             else:
-                dict_words[word] = 1
+                words_dict[word] = 1
 
-    sorted_dict_words = sorted(dict_words.items(), key=lambda item: item[1], reverse=True)
+    sorted_list = sorted(words_dict.items(), key=lambda item: item[1], reverse=True)
     most_frequent_words = []
-    for i in range(count):
-        most_frequent_words.append(sorted_dict_words[i][0])
+    for i in range(count_words):
+        most_frequent_words.append(sorted_list[i][0])
     return most_frequent_words
 
 
@@ -34,3 +34,5 @@ if __name__ == '__main__':
             print("File not found")
     except IndexError:
         print("Arguments error")
+    except ValueError:
+        print("The specified file format does not match")
