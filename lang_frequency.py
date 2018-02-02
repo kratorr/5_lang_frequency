@@ -1,12 +1,19 @@
 import sys
 import os
 import collections
+import re
 
 
 def load_data(filepath):
     with open(filepath, "r", encoding="utf-8") as text_file:
         text_string = text_file.read()
     return text_string
+
+
+def clean_text(text_string):
+    pattern = r"[\W0-9_]"
+    clean_text_string = re.sub(pattern, " ", text_string)
+    return clean_text_string
 
 
 def text_to_list(text_string):
@@ -22,15 +29,16 @@ def get_most_frequent_words(text_list, quantity_words=10):
 def print_most_frequent_words(most_frequent_words):
     print("10 most frequent words in the text: ")
     for words in most_frequent_words:
-        print("\"{}\" - quantity: {}".format(*words))
+        print('"{}" - quantity: {}'.format(*words))
 
 
 if __name__ == "__main__":
     try:
         filepath = sys.argv[1]
         if os.path.isfile(filepath):
-            text_data = text_to_list(load_data(filepath))
-            print_most_frequent_words(get_most_frequent_words(text_data))
+            clean_text = clean_text(load_data(filepath))
+            words_list  = text_to_list(clean_text)
+            print_most_frequent_words(get_most_frequent_words(words_list ))
         else:
             print("File not found")
     except IndexError:
