@@ -5,21 +5,32 @@ import collections
 
 def load_data(filepath):
     with open(filepath, "r", encoding="utf-8") as text_file:
-        text_list = text_file.read().split()
+        text_string = text_file.read()
+    return text_string
+
+
+def text_to_list(text_string):
+    text_list = text_string.split()
     return text_list
 
 
-def get_most_frequent_words(text_list, count_words=10):
-    most_frequent_words = collections.Counter(text_list).most_common(count_words)
+def get_most_frequent_words(text_list, quantity_words=10):
+    most_frequent_words = collections.Counter(text_list).most_common(quantity_words)
     return most_frequent_words
 
 
-if __name__ == '__main__':
+def print_most_frequent_words(most_frequent_words):
+    print("10 most frequent words in the text: ")
+    for words in most_frequent_words:
+        print("\"{}\" - quantity: {}".format(*words))
+
+
+if __name__ == "__main__":
     try:
         filepath = sys.argv[1]
         if os.path.isfile(filepath):
-            text_data = load_data(filepath)
-            print(get_most_frequent_words(text_data))
+            text_data = text_to_list(load_data(filepath))
+            print_most_frequent_words(get_most_frequent_words(text_data))
         else:
             print("File not found")
     except IndexError:
