@@ -11,7 +11,7 @@ def load_data(filepath):
 
 
 def clear_text(text_string):
-    pattern = r"[^a-zA-Zа-яА-Я0-9_]"
+    pattern = r"[\W]"
     clean_text_string = re.sub(pattern, " ", text_string)
     return clean_text_string
 
@@ -36,8 +36,8 @@ if __name__ == "__main__":
     try:
         filepath = sys.argv[1]
         if os.path.isfile(filepath):
-            clean_text = clear_text(load_data(filepath))
-            words_list  = convert_text_to_list(clean_text)
+            words_string = clear_text(load_data(filepath))
+            words_list  = convert_text_to_list(words_string)
             print_most_frequent_words(get_most_frequent_words(words_list ))
         else:
             print("File not found")
