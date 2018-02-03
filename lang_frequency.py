@@ -13,7 +13,7 @@ def load_data(filepath):
 def clear_text(text_string):
     pattern = r"[\W]"
     clean_text_string = re.sub(pattern, " ", text_string)
-    return clean_text_string
+    return clean_text_string.lower()
 
 
 def convert_text_to_list(text_string):
